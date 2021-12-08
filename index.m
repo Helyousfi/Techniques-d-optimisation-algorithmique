@@ -28,6 +28,25 @@ plot(sadDs - sadFs);
 title("Différence des sadDs et sadFs de tous les blocs de chaque image");
 differenceSad = sum(sadDs - sadFs);
 
+sadDsMoy = zeros(1, 300);
+sadFsMoy = zeros(1, 300);
+c = 1;
+for i=1:300
+    MoyFS = 0;
+    MoyDS = 0;
+    for j=1:22*18
+        MoyFS = MoyFS + sadFs(c);
+        MoyDS = MoyDS + sadDs(c);
+        c = c + 1;
+    end
+    sadDsMoy(i) = MoyDS/22*18;
+    sadFsMoy(i) = MoyFS/22*18;
+end
+figure
+plot(1:300,sadDsMoy,1:300,sadFsMoy);
+legend("sadDs","sadFs")
+title("sad de chaque image de la video");
+
 %% Comparaison des vecreurs
 VectorDs = zeros(1, 5680*23);
 VectorFs = zeros(1, 5680*23);
@@ -51,6 +70,8 @@ for i=1:2:5680*23
     cpt = cpt + 1;
 end
 
+
+
 %Suppression des valeurs NaN
 for i=1:5680*23 / 2
     if isnan(normVectorDs(i))
@@ -60,7 +81,27 @@ for i=1:5680*23 / 2
     end
     end
 end
-%compute sum of SADs
+
+vectDsMoy = zeros(1, 300);
+vectFsMoy = zeros(1, 300);
+c = 1;
+for i=1:300
+    MoyFS_V = 0;
+    MoyDS_V = 0;
+    for j=1:22*18/2
+        MoyFS_V = MoyFS_V + normVectorFs(c);
+        MoyDS_V = MoyDS_V + normVectorDs(c);
+        c = c + 1;
+    end
+    vectDsMoy(i) = MoyDS_V/22*18;
+    vectFsMoy(i) = MoyFS_V/22*18;
+end
+figure
+plot(1:300,vectDsMoy,1:300,vectFsMoy);
+legend("vectDsMoy","vectFsMoy")
+title("Moyenne des Vecteurs de deplacement de chaque image de la video");
+
+%compute sum of motion vectors
 figure
 plot(normVectorFs - normVectorDs);
 title("Différence des normVectorFs et normVectorDs de tous les blocs de chaque image");
