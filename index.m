@@ -61,3 +61,13 @@ for i=1:5680*23 / 2
 end
 
 normVrctorSum = sum(normVectorFs - normVectorDs);
+
+%Calcul des itérations qui dépassent 16 dans le fichier ds 
+% Augmenter le nombre maximum d'itération ne sert à rien puisqu'on a
+% seulemnt 311 qui atteignent 311
+nbrIteration = 0;
+for i=1:2:5680*23
+    if (abs(VectorDs(i)) + abs(VectorDs(i+1)) == 16)
+        nbrIteration = nbrIteration + 1;
+    end
+end
