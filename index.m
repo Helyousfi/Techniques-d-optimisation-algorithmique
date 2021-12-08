@@ -4,7 +4,6 @@ data_ds = readmatrix('mv_ds.xlsx');
 data_fs = readmatrix('mv_fs.xlsx');
 %% Comparaison des performances
 %% Comparaison des sads
-differenceSad = 0;
 sadDs = zeros(1, 5680*23);
 sadFs = zeros(1, 5680*23);
 c = 1;
@@ -25,7 +24,9 @@ for i=1:5680*23
     end
 end
 %compute sum of SADs
-sumSads = sum(sadDs - sadFs);
+plot(sadDs - sadFs);
+title("Différence des sadDs et sadFs de tous les blocs de chaque image");
+differenceSad = sum(sadDs - sadFs);
 
 %% Comparaison des vecreurs
 VectorDs = zeros(1, 5680*23);
@@ -59,8 +60,11 @@ for i=1:5680*23 / 2
     end
     end
 end
-
-normVrctorSum = sum(normVectorFs - normVectorDs);
+%compute sum of SADs
+figure
+plot(normVectorFs - normVectorDs);
+title("Différence des normVectorFs et normVectorDs de tous les blocs de chaque image");
+normVectorSum = sum(normVectorFs - normVectorDs);
 
 %Calcul des itérations qui dépassent 16 dans le fichier ds 
 % Augmenter le nombre maximum d'itération ne sert à rien puisqu'on a
@@ -71,3 +75,5 @@ for i=1:2:5680*23
         nbrIteration = nbrIteration + 1;
     end
 end
+
+
